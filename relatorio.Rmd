@@ -1,0 +1,57 @@
+---
+title: "R Markdown Practice"
+author: "Jaqueline"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Praticando R Markdown e ggplot2
+### Criação de algumas visualizações utilizando os datasets PalmerPenguins e Diamonds
+
+#### Configurando o ambiente:
+```{r message=FALSE, warning=FALSE}
+install.packages("ggplot2")
+install.packages("palmerpenguins")
+library(ggplot2)
+library(palmerpenguins)
+```
+
+#### Criando um gráfico com os dados PalmerPenguins:
+```{r message=FALSE, warning=FALSE}
+ggplot(data=penguins) + 
+  geom_smooth(mapping=aes(x=flipper_length_mm, y=body_mass_g)) +
+  geom_jitter(mapping=aes(x=flipper_length_mm, y=body_mass_g)) +
+  labs(title="Correlação entre massa corporal e comprimento da nadadeira dos pinguins", x="Comprimento da nadadeira", y="Massa corporal")
+```
+
+#### Gráfico de correlação similar ao anterior, porém com separação por espécie:
+```{r message=FALSE, warning=FALSE}
+ggplot(data=penguins,aes(x=flipper_length_mm,y=body_mass_g)) + 
+  geom_point(aes(color=species)) +
+  facet_wrap(~species) + 
+  labs(x="Comprimento da nadadeira", y="Massa corporal")
+```
+
+
+#### Gráfico de barras utilizando o dataset Diamonds, que contém dados sobre vários diamantes:
+```{r message=FALSE, warning=FALSE}
+ggplot(data=diamonds) + 
+  geom_bar(mapping=aes(x=cut, fill=cut)) +
+  labs(title="Quantidade de diamantes por qualidade do corte", 
+       x="Corte", y="Quantidade",
+       fill="Corte")
+```
+
+#### Gráfico similar ao anterior, porém com subdivisão de claridade:
+```{r message=FALSE, warning=FALSE}
+ggplot(data=diamonds) + 
+  geom_bar(mapping=aes(x=cut, fill=clarity)) +
+  labs(title="Quantidade de diamantes por qualidade do corte", 
+       x="Corte", y="Quantidade",
+       fill="Claridade")
+```
+
